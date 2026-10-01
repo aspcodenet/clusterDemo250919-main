@@ -9,7 +9,7 @@ spec:
       namespace: kube-system
       sectionName: web
   hostnames:
-    - stefanssupersajt.jumpingcrab.com
+    - its3.systementor.se
   rules:
     - matches:
         - path:

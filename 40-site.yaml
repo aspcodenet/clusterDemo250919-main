@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
         - name: yagolangsite
-          image: joseluisq/static-web-server
+          image: yeasy/simple-web
           ports:
-            - containerPort: 8080
+            - containerPort: 8787
 ---
 apiVersion: v1
 kind: Service
@@ -34,7 +34,7 @@ spec:
   - name: http
     port: 80
     protocol: TCP
-    targetPort: 8080
+    targetPort: 8787
   selector:
     app: yagolangsite
   sessionAffinity: None
