@@ -116,9 +116,8 @@ Om trafik inte når tjänsten, kontrollera att ingen annan tjänst använder por
 
 Från en klient som kan nå servern:
 
-```bash
-curl -i http://stefanssupersajt.jumpingcrab.com/
-```
+surfa till er sajt!
+
 
 Den här konfigurationen är HTTP-only. För HTTPS krävs ett giltigt TLS-certifikat och en TLS-konfigurerad Gateway-listener; det skapas inte i den här guiden.
 
