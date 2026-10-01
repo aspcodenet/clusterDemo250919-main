@@ -24,11 +24,6 @@ kubectl --kubeconfig=./kubeconfig.yaml get nodes
 
 När kopieringen lyckats kan du ta bort den tillfälliga kopian från servern:
 
-```bash
-ssh SERVER_USER@SERVER_ADDRESS 'rm ~/kubeconfig.yaml'
-```
-
-Kubeconfigen innehåller administratörscredentials. Förvara den säkert, lämna den utanför ett publikt repo och rotera credentials om filen råkat exponeras.
 
 ## 1. Kontrollera anslutningen till klustret
 
