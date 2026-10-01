@@ -15,9 +15,6 @@ kopiera in i kubeconfig.yaml
 
 Kör sedan detta på din egen dator, från katalogen där du vill ha manifesten. Byt ut `SERVER_USER` och `SERVER_ADDRESS` mot användarnamnet och IP-adressen eller DNS-namnet till servern:
 
-```bash
-scp SERVER_USER@SERVER_ADDRESS:~/kubeconfig.yaml ./kubeconfig.yaml
-```
 
 Kubeconfigen pekar normalt på `https://127.0.0.1:6443`, vilket bara fungerar från själva servern. Öppna den lokala `kubeconfig.yaml` i en texteditor och ändra `server:` till en adress som din dator kan nå, till exempel `https://SERVER_ADDRESS:6443`. Använd en adress som finns med i K3s API-certifikatets SAN-lista; om adressen saknas där behöver K3s konfigureras med `tls-san` för den adressen. Begränsa brandväggens port `6443` till betrodda IP-adresser — exponera inte Kubernetes API öppet mot internet.
 
