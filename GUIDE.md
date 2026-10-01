@@ -9,9 +9,9 @@ Den här guiden skapar resurserna i `yatest` och publicerar sajten via K3s inbyg
 Kör första kommandot på K3s-servern via SSH eller direkt i dess terminal. Det kopierar K3s kubeconfig till din användares hemkatalog med rättigheter bara för dig:
 
 ```bash
-sudo install -o "$(id -un)" -g "$(id -gn)" -m 600 \
-  /etc/rancher/k3s/k3s.yaml "$HOME/kubeconfig.yaml"
+cat  /etc/rancher/k3s/k3s.yaml 
 ```
+kopiera in i kubeconfig.yaml
 
 Kör sedan detta på din egen dator, från katalogen där du vill ha manifesten. Byt ut `SERVER_USER` och `SERVER_ADDRESS` mot användarnamnet och IP-adressen eller DNS-namnet till servern:
 
