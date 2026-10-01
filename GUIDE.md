@@ -4,6 +4,37 @@ Den här guiden skapar resurserna i `yatest` och publicerar sajten via K3s inbyg
 
 > Kör kommandona från katalogen där manifesten och `kubeconfig.yaml` finns. Ersätt `kubeconfig.yaml` med din egen kubeconfig om den heter något annat. Dela inte kubeconfig-filen; den ger åtkomst till klustret.
 
+## 0. Hämta kubeconfig från K3s-servern
+
+Kör första kommandot på K3s-servern via SSH eller direkt i dess terminal. Det kopierar K3s kubeconfig till din användares hemkatalog med rättigheter bara för dig:
+
+```bash
+sudo install -o "$(id -un)" -g "$(id -gn)" -m 600 \
+  /etc/rancher/k3s/k3s.yaml "$HOME/kubeconfig.yaml"
+```
+
+Kör sedan detta på din egen dator, från katalogen där du vill ha manifesten. Byt ut `SERVER_USER` och `SERVER_ADDRESS` mot användarnamnet och IP-adressen eller DNS-namnet till servern:
+
+```bash
+scp SERVER_USER@SERVER_ADDRESS:~/kubeconfig.yaml ./kubeconfig.yaml
+```
+
+Kubeconfigen pekar normalt på `https://127.0.0.1:6443`, vilket bara fungerar från själva servern. Öppna den lokala `kubeconfig.yaml` i en texteditor och ändra `server:` till en adress som din dator kan nå, till exempel `https://SERVER_ADDRESS:6443`. Använd en adress som finns med i K3s API-certifikatets SAN-lista; om adressen saknas där behöver K3s konfigureras med `tls-san` för den adressen. Begränsa brandväggens port `6443` till betrodda IP-adresser — exponera inte Kubernetes API öppet mot internet.
+
+Kontrollera sedan från din dator:
+
+```bash
+kubectl --kubeconfig=./kubeconfig.yaml get nodes
+```
+
+När kopieringen lyckats kan du ta bort den tillfälliga kopian från servern:
+
+```bash
+ssh SERVER_USER@SERVER_ADDRESS 'rm ~/kubeconfig.yaml'
+```
+
+Kubeconfigen innehåller administratörscredentials. Förvara den säkert, lämna den utanför ett publikt repo och rotera credentials om filen råkat exponeras.
+
 ## 1. Kontrollera anslutningen till klustret
 
 ```bash
