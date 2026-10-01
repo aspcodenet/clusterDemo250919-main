@@ -90,21 +90,18 @@ Vänta tills Gateway lyser `Programmed=True` och HTTPRoute visar att den är acc
 
 När Gateway och HTTPRoute är redo, och du har kontrollerat att routen fungerar, ta bort gamla resurser som inte längre används.
 
-Om du tidigare skapade Ingress-resursen från det gamla `50-ingress.yaml`:
-
-```bash
-kubectl --kubeconfig=./kubeconfig.yaml delete ingress sites -n yatest --ignore-not-found
-```
-
-Om du tidigare körde den gamla secret-instruktionen skapade den `regcred`. Den nya Deployment använder den inte. Ta bara bort en eventuell `regcred`-secret om du har kontrollerat att inga andra workloads använder den:
-
-```bash
-kubectl --kubeconfig=./kubeconfig.yaml delete secret regcred -n yatest
-```
 
 ## 6. Peka DNS och öppna brandväggen
 
-Skapa eller uppdatera en DNS A-post för `stefanssupersajt.jumpingcrab.com` till serverns publika IP-adress. Öppna inkommande TCP-port 80 (och senare 443 om du sätter upp HTTPS) i serverns och eventuell molnleverantörs brandvägg. DNS-namnet måste peka till den här servern.
+Ändra i 50-gateway.yaml (stefanssupersajt.jumpingcrab.com) till itsX.systementor.se
+
+Kör ändringar
+```bash
+kubectl --kubeconfig=./kubeconfig.yaml apply -f 50-gateway.yaml
+```
+
+
+Öppna inkommande TCP-port 80 (och senare 443 om du sätter upp HTTPS) i serverns och eventuell molnleverantörs brandvägg. DNS-namnet måste peka till den här servern.
 
 K3s ServiceLB exponerar normalt Traefik på port 80. Kontrollera den faktiska tjänsten och adressen:
 
